@@ -1,0 +1,23 @@
+<div>
+  <h1>List</h1>
+  @if (businessCards === null) {
+  <p>Loading...</p>
+  } @else if (businessCards?.length === 0) {
+  <p>No business cards added yet</p>
+  } @else { @for (businessCard of businessCards; track $index) { @if
+  (businessCard.photo) {
+  <img
+    [src]="'data:image/jpeg;base64,' + businessCard.photo"
+    [style.width.px]="150"
+    [style.height.px]="150"
+    style="object-fit: cover; border-radius: 8px"
+    alt="User Photo"
+  />
+  }
+  <p>Name: {{ businessCard.name }}</p>
+  <p>Email: {{ businessCard.email }}</p>
+  <p>Gender: {{ businessCard.gender }}</p>
+  <p>Phone: {{ businessCard.phone }}</p>
+  <p>Date of birth: {{ businessCard.dateOfBirth }}</p>
+  }}
+</div>
