@@ -29,4 +29,23 @@ export class ListComponent {
       this.loadList();
     });
   }
+
+  exportCsv(id: number) {
+    this.service.exportToCsv(id).subscribe((blob) => {
+      this.downloadFile(blob, 'BusinessCard.csv');
+    });
+  }
+
+  exportXml(id: number) {
+    this.service.exportToXml(id).subscribe((blob) => {
+      this.downloadFile(blob, 'BusinessCard.xml');
+    });
+  }
+
+  downloadFile(blob: Blob, filename: string) {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  }
 }

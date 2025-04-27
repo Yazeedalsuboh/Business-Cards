@@ -23,4 +23,16 @@ export class ApiService {
   public delete(id: number) {
     return this.http.delete(`${this.apiUrl}/api/businessCards/${id}`);
   }
+
+  public exportToCsv(id: number) {
+    return this.http.get(`${this.apiUrl}/api/businessCards/export/csv/${id}`, {
+      responseType: 'blob',
+    });
+  }
+
+  public exportToXml(id: number) {
+    return this.http.get(`${this.apiUrl}/api/businessCards/export/xml/${id}`, {
+      responseType: 'blob',
+    });
+  }
 }

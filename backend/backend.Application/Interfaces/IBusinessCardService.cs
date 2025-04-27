@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using backend.Application.DTOs;
 using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,9 @@ namespace Application.Interfaces
         Task<BusinessCard> AddBusinessCardAsync(AddBusinessCardDto addBusinessCardDto);
 
         Task<BusinessCard> DeleteBusinessCardAsync(int id);
+
+        Task<FileContentResult> ExportToCsvAsync(int id);
+        Task<FileContentResult> ExportToXmlAsync(int id);
 
     }
 }

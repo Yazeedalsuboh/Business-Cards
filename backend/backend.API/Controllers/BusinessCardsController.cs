@@ -51,5 +51,42 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("export/csv/{id}")]
+        public async Task<IActionResult> ExportToCsv(int id)
+        {
+            try
+            {
+                var fileResult = await _businessCardService.ExportToCsvAsync(id);
+                return File(fileResult.FileContents, fileResult.ContentType, fileResult.FileDownloadName);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error exporting CSV: {ex.Message}");
+            }
+        }
+
+        [HttpGet("export/xml/{id}")]
+        public async Task<IActionResult> ExportToXml(int id)
+        {
+            try
+            {
+                var fileResult = await _businessCardService.ExportToXmlAsync(id);
+                return File(fileResult.FileContents, fileResult.ContentType, fileResult.FileDownloadName);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error exporting XML: {ex.Message}");
+            }
+        }
+
+
     }
 }

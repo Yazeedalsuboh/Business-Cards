@@ -23,6 +23,12 @@
 
   <div>
     <button (click)="delete(businessCard.id)">Delete</button>
+    <button type="button" (click)="exportCsv(businessCard.id)">
+      Export as CSV
+    </button>
+    <button type="button" (click)="exportXml(businessCard.id)">
+      Export as XML
+    </button>
   </div>
   }}
 </div>
