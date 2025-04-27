@@ -16,5 +16,8 @@ namespace Domain.Interfaces
         Task<BusinessCard?> GetByIdAsync(int id);
         Task<BusinessCard> DeleteAsync(BusinessCard businessCard);
 
+        Task<IEnumerable<BusinessCard>> SearchAsync(string term, string searchString);
+
+
     }
 }

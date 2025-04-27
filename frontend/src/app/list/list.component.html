@@ -1,4 +1,35 @@
 <div>
+  <div class="search-section">
+    <select [(ngModel)]="searchTerm">
+      <option value="name">Name</option>
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+      <option value="gender">Gender</option>
+      <option value="dateofbirth">Date of Birth</option>
+    </select>
+
+    <input
+      *ngIf="searchTerm !== 'gender' && searchTerm !== 'dateofbirth'"
+      [(ngModel)]="searchString"
+      placeholder="Enter search..."
+      type="text"
+    />
+
+    <select *ngIf="searchTerm === 'gender'" [(ngModel)]="searchString">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
+    <input
+      *ngIf="searchTerm === 'dateofbirth'"
+      type="date"
+      [(ngModel)]="searchString"
+    />
+
+    <button (click)="search()">Search</button>
+    <button (click)="reset()">Reset</button>
+  </div>
   <h1>List</h1>
   @if (businessCards === null) {
   <p>Loading...</p>
@@ -19,8 +50,6 @@
   <p>Gender: {{ businessCard.gender }}</p>
   <p>Phone: {{ businessCard.phone }}</p>
   <p>Date of birth: {{ businessCard.dateOfBirth }}</p>
-  <p>id: {{ businessCard.id }}</p>
-
   <div>
     <button (click)="delete(businessCard.id)">Delete</button>
     <button type="button" (click)="exportCsv(businessCard.id)">

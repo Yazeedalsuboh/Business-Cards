@@ -21,5 +21,8 @@ namespace Application.Interfaces
         Task<FileContentResult> ExportToCsvAsync(int id);
         Task<FileContentResult> ExportToXmlAsync(int id);
 
+        Task<List<BusinessCard>> SearchBusinessCardsAsync(string term, string searchString);
+
+
     }
 }

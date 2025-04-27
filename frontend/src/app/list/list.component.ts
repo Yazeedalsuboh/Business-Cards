@@ -2,15 +2,18 @@ import { Component } from '@angular/core';
 import { BusinessCard } from '../types/types';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
 })
 export class ListComponent {
   businessCards?: BusinessCard[];
+  searchTerm: string = 'name';
+  searchString: string = '';
 
   constructor(public service: ApiService) {}
 
@@ -47,5 +50,20 @@ export class ListComponent {
     link.href = window.URL.createObjectURL(blob);
     link.download = filename;
     link.click();
+  }
+
+  search() {
+    if (!this.searchTerm || !this.searchString) return;
+
+    this.service.search(this.searchTerm, this.searchString).subscribe({
+      next: (res) => (this.businessCards = res),
+      error: (err) => console.error(err),
+    });
+  }
+
+  reset() {
+    this.searchTerm = 'name';
+    this.searchString = '';
+    this.loadList();
   }
 }

@@ -35,4 +35,19 @@ export class ApiService {
       responseType: 'blob',
     });
   }
+
+  public search(
+    term: string,
+    searchString: string
+  ): Observable<BusinessCard[]> {
+    return this.http.get<BusinessCard[]>(
+      `${this.apiUrl}/api/businessCards/filter`,
+      {
+        params: {
+          term,
+          searchString,
+        },
+      }
+    );
+  }
 }

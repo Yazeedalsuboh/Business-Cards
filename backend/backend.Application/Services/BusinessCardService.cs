@@ -124,5 +124,11 @@ namespace Application.Services
             };
         }
 
+        public async Task<List<BusinessCard>> SearchBusinessCardsAsync(string term, string searchString)
+        {
+            return (await _businessCardRepository.SearchAsync(term, searchString)).ToList();
+        }
+
+
     }
 }

@@ -87,6 +87,20 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetBusinessCardsByFilters([FromQuery] string term, [FromQuery] string searchString)
+        {
+            try
+            {
+                var businessCards = await _businessCardService.SearchBusinessCardsAsync(term, searchString);
+                return Ok(businessCards);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }
