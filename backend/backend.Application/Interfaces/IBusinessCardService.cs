@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using backend.Application.DTOs;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,8 @@ namespace Application.Interfaces
     public interface IBusinessCardService
     {
         Task<IEnumerable<BusinessCardDto>> GetAllBusinessCardsAsync();
+
+        Task<BusinessCard> AddBusinessCardAsync(AddBusinessCardDto addBusinessCardDto);
+
     }
 }

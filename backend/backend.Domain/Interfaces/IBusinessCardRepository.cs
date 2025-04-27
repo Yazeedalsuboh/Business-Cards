@@ -10,5 +10,8 @@ namespace Domain.Interfaces
     public interface IBusinessCardRepository
     {
         Task<IEnumerable<BusinessCard>> GetAllAsync();
+
+        Task<BusinessCard> AddAsync(BusinessCard businessCard);
+
     }
 }

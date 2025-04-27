@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using AutoMapper;
+using backend.Application.DTOs;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace Application.MappingProfiles
         public BusinessCardProfiles()
         {
             CreateMap<BusinessCard, BusinessCardDto>();
+
+            CreateMap<AddBusinessCardDto, BusinessCard>();
         }
     }
 }

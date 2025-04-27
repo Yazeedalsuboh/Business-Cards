@@ -1,0 +1,32 @@
+<div>
+  <form (submit)="onSubmit()" [formGroup]="form">
+    <label>Name: <input type="text" formControlName="name" /></label><br />
+    <label
+      >Gender:
+      <select formControlName="gender">
+        <option value="">Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select> </label
+    ><br />
+    <label
+      >Date of Birth: <input type="date" formControlName="dateOfBirth" /></label
+    ><br />
+    <label>Email: <input type="email" formControlName="email" /></label><br />
+    <label>Phone: <input type="tel" formControlName="phone" /></label><br />
+    <label>Address: <input type="text" formControlName="address" /></label
+    ><br />
+    <label>Photo: <input type="file" (change)="onFileSelected($event)" /></label
+    ><br />
+    <div *ngIf="photoPreviewUrl">
+      <h4>Image Preview:</h4>
+      <img
+        [src]="photoPreviewUrl"
+        alt="Preview"
+        width="200"
+        style="border-radius: 8px"
+      />
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

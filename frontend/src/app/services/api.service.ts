@@ -15,4 +15,8 @@ export class ApiService {
   public getAll(): Observable<BusinessCard[]> {
     return this.http.get<BusinessCard[]>(`${this.apiUrl}/api/businessCards`);
   }
+
+  public add(businessCard: FormData) {
+    return this.http.post(`${this.apiUrl}/api/businessCards`, businessCard);
+  }
 }

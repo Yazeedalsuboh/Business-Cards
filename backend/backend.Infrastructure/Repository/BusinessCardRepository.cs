@@ -22,5 +22,12 @@ namespace Infrastructure.Repository
         {
             return await _context.businessCards.ToListAsync();
         }
+
+        public async Task<BusinessCard> AddAsync(BusinessCard businessCard)
+        {
+            await _context.businessCards.AddAsync(businessCard);
+            await _context.SaveChangesAsync();
+            return businessCard;
+        }
     }
 }

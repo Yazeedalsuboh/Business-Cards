@@ -1,8 +1,10 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
+using backend.Application.DTOs;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,34 @@ namespace Application.Services
         public async Task<IEnumerable<BusinessCardDto>> GetAllBusinessCardsAsync()
         {
             return _mapper.Map<IEnumerable<BusinessCardDto>>(await _businessCardRepository.GetAllAsync());
+        }
+
+        public async Task<BusinessCard> AddBusinessCardAsync(AddBusinessCardDto addBusinessCardDto)
+        {
+            var businessCard = _mapper.Map<AddBusinessCardDto, BusinessCard>(addBusinessCardDto);
+
+            if (addBusinessCardDto.Photo != null)
+            {
+                businessCard.Photo = EncodeImageToBase64(addBusinessCardDto.Photo);
+            }
+
+            return await _businessCardRepository.AddAsync(businessCard);
+        }
+        private string EncodeImageToBase64(IFormFile imageFile)
+        {
+            const long MaxFileSize = 1 * 1024 * 1024;
+
+            if (imageFile == null || imageFile.Length > MaxFileSize)
+            {
+                return string.Empty;
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                imageFile.CopyTo(memoryStream);
+                var imageBytes = memoryStream.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using backend.Application.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,20 @@ namespace API.Controllers
         {
             var businessCards = await _businessCardService.GetAllBusinessCardsAsync();
             return Ok(businessCards);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBusinessCard([FromForm] AddBusinessCardDto addBusinessCardDto)
+        {
+            try
+            {
+                var result = await _businessCardService.AddBusinessCardAsync(addBusinessCardDto);
+                return Ok(result);
+            }
+            catch (ArgumentException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }
