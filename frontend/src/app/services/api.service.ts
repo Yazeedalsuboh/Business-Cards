@@ -19,4 +19,8 @@ export class ApiService {
   public add(businessCard: FormData) {
     return this.http.post(`${this.apiUrl}/api/businessCards`, businessCard);
   }
+
+  public delete(id: number) {
+    return this.http.delete(`${this.apiUrl}/api/businessCards/${id}`);
+  }
 }

@@ -8,6 +8,7 @@ namespace Application.DTOs
 {
     public class BusinessCardDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Gender { get; set; } = string.Empty;
         public DateOnly DateOfBirth { get; set; }

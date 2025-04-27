@@ -19,5 +19,10 @@
   <p>Gender: {{ businessCard.gender }}</p>
   <p>Phone: {{ businessCard.phone }}</p>
   <p>Date of birth: {{ businessCard.dateOfBirth }}</p>
+  <p>id: {{ businessCard.id }}</p>
+
+  <div>
+    <button (click)="delete(businessCard.id)">Delete</button>
+  </div>
   }}
 </div>

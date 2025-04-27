@@ -1,4 +1,5 @@
 export class BusinessCard {
+  id: number = 0;
   name: string = '';
   gender: string = '';
   dateOfBirth: string = '';

@@ -57,5 +57,18 @@ namespace Application.Services
                 return Convert.ToBase64String(imageBytes);
             }
         }
+
+        public async Task<BusinessCard> DeleteBusinessCardAsync(int Id)
+        {
+            var businessCard = await _businessCardRepository.GetByIdAsync(Id);
+
+            if (businessCard == null)
+            {
+                throw new KeyNotFoundException($"Business card with ID {Id} not found.");
+            }
+
+            return await _businessCardRepository.DeleteAsync(businessCard);
+        }
+
     }
 }

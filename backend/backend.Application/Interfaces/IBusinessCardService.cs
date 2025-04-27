@@ -15,5 +15,7 @@ namespace Application.Interfaces
 
         Task<BusinessCard> AddBusinessCardAsync(AddBusinessCardDto addBusinessCardDto);
 
+        Task<BusinessCard> DeleteBusinessCardAsync(int id);
+
     }
 }

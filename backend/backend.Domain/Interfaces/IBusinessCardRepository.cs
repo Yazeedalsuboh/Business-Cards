@@ -13,5 +13,8 @@ namespace Domain.Interfaces
 
         Task<BusinessCard> AddAsync(BusinessCard businessCard);
 
+        Task<BusinessCard?> GetByIdAsync(int id);
+        Task<BusinessCard> DeleteAsync(BusinessCard businessCard);
+
     }
 }

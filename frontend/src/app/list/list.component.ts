@@ -15,8 +15,18 @@ export class ListComponent {
   constructor(public service: ApiService) {}
 
   ngOnInit(): void {
+    this.loadList();
+  }
+
+  loadList() {
     this.service.getAll().subscribe((businessCards) => {
       this.businessCards = businessCards;
+    });
+  }
+
+  delete(id: number) {
+    this.service.delete(id).subscribe(() => {
+      this.loadList();
     });
   }
 }

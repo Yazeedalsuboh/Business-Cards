@@ -29,5 +29,20 @@ namespace Infrastructure.Repository
             await _context.SaveChangesAsync();
             return businessCard;
         }
+
+        public async Task<BusinessCard?> GetByIdAsync(int id)
+        {
+            return await _context.businessCards.FindAsync(id);
+        }
+
+        public async Task<BusinessCard> DeleteAsync(BusinessCard businessCard)
+        {
+            if (businessCard == null) throw new ArgumentNullException(nameof(businessCard));
+
+            _context.Remove(businessCard);
+            await _context.SaveChangesAsync();
+            return businessCard;
+        }
+
     }
 }
