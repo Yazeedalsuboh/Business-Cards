@@ -50,4 +50,18 @@ export class ApiService {
       }
     );
   }
+
+  public importCsv(formData: FormData) {
+    return this.http.post(
+      `${this.apiUrl}/api/businessCards/import/csv`,
+      formData
+    );
+  }
+
+  public importXml(formData: FormData) {
+    return this.http.post(
+      `${this.apiUrl}/api/businessCards/import/xml`,
+      formData
+    );
+  }
 }

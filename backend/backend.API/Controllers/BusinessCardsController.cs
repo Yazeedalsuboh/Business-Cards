@@ -101,6 +101,48 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost("import/csv")]
+        public async Task<IActionResult> ImportFromCsv([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { Succeeded = false, Message = "File is empty." });
+
+            try
+            {
+                var result = await _businessCardService.ImportFromCsvAsync(file);
+
+                if (!result.Succeeded)
+                    return BadRequest(result);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Succeeded = false, Message = $"Error importing CSV: {ex.Message}" });
+            }
+        }
+
+        [HttpPost("import/xml")]
+        public async Task<IActionResult> ImportFromXml([FromForm] IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { Succeeded = false, Message = "File is empty." });
+
+            try
+            {
+                var result = await _businessCardService.ImportFromXmlAsync(file);
+
+                if (!result.Succeeded)
+                    return BadRequest(result);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Succeeded = false, Message = $"Error importing XML: {ex.Message}" });
+            }
+        }
+
 
     }
 }

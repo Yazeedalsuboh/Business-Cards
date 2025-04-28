@@ -1,16 +1,15 @@
-﻿using Application.DTOs;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using AutoMapper;
 using backend.Application.DTOs;
+using CsvHelper;
+using CsvHelper.Configuration;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Text;
-using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Application.Services
 {
@@ -127,6 +126,76 @@ namespace Application.Services
         public async Task<List<BusinessCard>> SearchBusinessCardsAsync(string term, string searchString)
         {
             return (await _businessCardRepository.SearchAsync(term, searchString)).ToList();
+        }
+
+        public async Task<(bool Succeeded, string Message)> ImportFromCsvAsync(IFormFile file)
+        {
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HeaderValidated = null,
+                MissingFieldFound = null
+            };
+
+            using var reader = new StreamReader(file.OpenReadStream());
+            using var csv = new CsvReader(reader, csvConfig);
+            var records = csv.GetRecords<BusinessCardCsvXmlDto>().ToList();
+
+            if (!records.Any())
+                return (false, "No records found in the CSV file.");
+
+            foreach (var dto in records)
+            {
+                try
+                {
+                    var businessCard = _mapper.Map<BusinessCardCsvXmlDto, BusinessCard>(dto);
+                    var result = await _businessCardRepository.AddAsync(businessCard);
+
+                    if (result == null)
+                        return (false, "Failed to save a record.");
+                }
+                catch (Exception ex)
+                {
+                    return (false, $"Error while processing record with Email={dto.Email ?? "unknown"}: {ex.Message}");
+                }
+            }
+
+            return (true, "Business cards imported successfully.");
+        }
+
+        public async Task<(bool Succeeded, string Message)> ImportFromXmlAsync(IFormFile file)
+        {
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
+            stream.Position = 0;
+
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            var serializer = new XmlSerializer(typeof(BusinessCardCsvXmlDtoList));
+
+            BusinessCardCsvXmlDtoList dtoList;
+            try
+            {
+                dtoList = (BusinessCardCsvXmlDtoList)serializer.Deserialize(reader);
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to deserialize XML: {ex.Message}");
+            }
+
+            if (dtoList == null || dtoList.Items == null || !dtoList.Items.Any())
+                return (false, "No records found in the XML file.");
+
+            foreach (var dto in dtoList.Items)
+            {
+
+                var businessCard = _mapper.Map<BusinessCardCsvXmlDto, BusinessCard>(dto);
+
+                var result = await _businessCardRepository.AddAsync(businessCard);
+
+                if (result == null)
+                    return (false, "Failed to save some records.");
+            }
+
+            return (true, "Business cards imported successfully.");
         }
 
 

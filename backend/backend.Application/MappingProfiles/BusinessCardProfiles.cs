@@ -1,14 +1,8 @@
-﻿using Application.DTOs;
-using AutoMapper;
+﻿using AutoMapper;
 using backend.Application.DTOs;
 using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.MappingProfiles
+namespace backend.Application.MappingProfiles
 {
     class BusinessCardProfiles : Profile
     {
@@ -17,6 +11,10 @@ namespace Application.MappingProfiles
             CreateMap<BusinessCard, BusinessCardDto>();
 
             CreateMap<AddBusinessCardDto, BusinessCard>();
+
+            CreateMap<BusinessCardCsvXmlDto, BusinessCard>();
+
+
         }
     }
 }

@@ -1,12 +1,7 @@
-﻿using Application.DTOs;
-using backend.Application.DTOs;
+﻿using backend.Application.DTOs;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
@@ -23,6 +18,9 @@ namespace Application.Interfaces
 
         Task<List<BusinessCard>> SearchBusinessCardsAsync(string term, string searchString);
 
+        Task<(bool Succeeded, string Message)> ImportFromCsvAsync(IFormFile file);
+
+        Task<(bool Succeeded, string Message)> ImportFromXmlAsync(IFormFile file);
 
     }
 }

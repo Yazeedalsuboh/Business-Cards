@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import { FileImportsComponent } from './file-imports/file-imports.component';
 
 @Component({
   selector: 'app-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FileImportsComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
 })
