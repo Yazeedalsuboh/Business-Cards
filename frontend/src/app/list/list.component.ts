@@ -52,10 +52,10 @@ export class ListComponent {
     link.click();
   }
 
-  search() {
+  filter() {
     if (!this.searchTerm || !this.searchString) return;
 
-    this.service.search(this.searchTerm, this.searchString).subscribe({
+    this.service.filter(this.searchTerm, this.searchString).subscribe({
       next: (res) => (this.businessCards = res),
       error: (err) => console.error(err),
     });

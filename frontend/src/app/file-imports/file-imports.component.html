@@ -1,14 +1,14 @@
-<div>
+<div style="margin: 2rem">
   <div>
     <div class="import-section">
-      <div>
+      <div style="margin-bottom: 1rem">
         <label
           >Import CSV:
           <input type="file" (change)="onFileSelected($event, 'csv')"
         /></label>
         <button (click)="importFile(this.csvFile, 'csv')">Upload CSV</button>
       </div>
-      <div>
+      <div style="margin-bottom: 1rem">
         <label
           >Import XML:
           <input type="file" (change)="onFileSelected($event, 'xml')"
@@ -18,14 +18,12 @@
     </div>
   </div>
   <div>
+    @if (this.previewData.length != 0) {
+    <div>
+      <h3>Preview, upload if all good</h3>
+    </div>
     @for (businessCard of this.previewData; track $index) {
     <div>
-      <p>{{ businessCard.name }}</p>
-      <p>{{ businessCard.gender }}</p>
-      <p>{{ businessCard.dateOfBirth }}</p>
-      <p>{{ businessCard.email }}</p>
-      <p>{{ businessCard.phone }}</p>
-      <p>{{ businessCard.address }}</p>
       <img
         [src]="'data:image/jpeg;base64,' + businessCard.photo"
         [style.width.px]="150"
@@ -33,7 +31,13 @@
         style="object-fit: cover; border-radius: 8px"
         alt="User Photo"
       />
+      <p>{{ businessCard.name }}</p>
+      <p>{{ businessCard.gender }}</p>
+      <p>{{ businessCard.dateOfBirth }}</p>
+      <p>{{ businessCard.email }}</p>
+      <p>{{ businessCard.phone }}</p>
+      <p>{{ businessCard.address }}</p>
     </div>
-    }
+    } }
   </div>
 </div>

@@ -36,7 +36,7 @@ export class ApiService {
     });
   }
 
-  public search(
+  public filter(
     term: string,
     searchString: string
   ): Observable<BusinessCard[]> {
